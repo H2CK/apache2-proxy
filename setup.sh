@@ -39,16 +39,16 @@ exec /sbin/setuser root /usr/sbin/apache2ctl -DFOREGROUND 2>&1
 EOT
 
 # letencrypt renewal script
-mkdir -p /var/bin
-cat <<'EOT' > /var/bin/certbot_renew.sh
-#!/bin/bash
-/usr/bin/certbot renew
-exec /sbin/setuser root /usr/sbin/apache2ctl -k graceful -DFOREGROUND 2>&1
-EOT
+#mkdir -p /var/bin
+#cat <<'EOT' > /var/bin/certbot_renew.sh
+##!/bin/bash
+#/usr/bin/certbot renew
+#exec /sbin/setuser root /usr/sbin/apache2ctl -k graceful -DFOREGROUND 2>&1
+#EOT
 
-cat <<'EOT' > /etc/cron.d/certbot
-12 0 */10 * *	root	/var/bin/certbot_renew.sh
-EOT
+#cat <<'EOT' > /etc/cron.d/certbot
+#12 0 */10 * *	root	/var/bin/certbot_renew.sh
+#EOT
 
 mkdir /usr/share/external
 chmod 777 /usr/share/external
