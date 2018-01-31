@@ -18,6 +18,7 @@ RUN a2enmod ssl \
 	&& a2enmod proxy_wstunnel \
 	&& a2enmod rewrite \
 	&& a2enmod headers \
+	&& a2enmod auth-openidc \
 	&& a2enmod wsgi \
 	&& a2dissite 000-default 
 
