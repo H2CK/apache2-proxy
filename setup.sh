@@ -61,7 +61,8 @@ apt-get install -qy \
     python-passlib \
     php \
     libapache2-mod-php7.0 \
-    php-mysql
+    php-mysql \
+    wget
 
 apt-get install -qy software-properties-common
 add-apt-repository ppa:certbot/certbot
