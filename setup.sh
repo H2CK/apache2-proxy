@@ -59,6 +59,8 @@ apt-get install -qy \
     libapache2-mod-wsgi \
     python-redis \
     python-passlib \
+    python-requests \
+    python-requests-cache \
     php \
     libapache2-mod-php7.0 \
     php-mysql \
