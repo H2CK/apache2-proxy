@@ -54,7 +54,6 @@ apt-get install -qy \
     apache2-utils \
     libexpat1 \
     ssl-cert \
-    libapache2-mod-auth-openidc \
     python \
     libapache2-mod-wsgi \
     python-redis \
@@ -65,6 +64,10 @@ apt-get install -qy \
     libapache2-mod-php7.0 \
     php-mysql \
     wget
+    
+wget -P /tmp https://github.com/zmartzone/mod_auth_openidc/releases/download/v2.3.7/libapache2-mod-auth-openidc_2.3.7-1.xenial.1_amd64.deb
+dpkg -i /tmp/libapache2-mod-auth-openidc_2.3.7-1.xenial.1_amd64.deb
+apt-get -fqq install 
 
 apt-get install -qy software-properties-common
 add-apt-repository ppa:certbot/certbot
