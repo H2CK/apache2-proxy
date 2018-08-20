@@ -49,6 +49,7 @@ chmod -R +x /etc/service/ /etc/my_init.d/ /var/bin/
 
 apt-get update -qq
 apt-get upgrade -qy
+
 apt-get install -qy \
     apache2 \
     apache2-utils \
