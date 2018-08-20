@@ -53,6 +53,10 @@ apt-get install -qy \
     apache2 \
     apache2-utils \
     libexpat1 \
+    libcjose0 \
+    libcurl3 \
+    libhiredis0.13 \
+    libjansson4 \
     ssl-cert \
     python \
     libapache2-mod-wsgi \
@@ -67,7 +71,6 @@ apt-get install -qy \
     
 wget -P /tmp https://github.com/zmartzone/mod_auth_openidc/releases/download/v2.3.7/libapache2-mod-auth-openidc_2.3.7-1.xenial.1_amd64.deb
 dpkg -i /tmp/libapache2-mod-auth-openidc_2.3.7-1.xenial.1_amd64.deb
-apt-get -fqq install 
 
 apt-get install -qy software-properties-common
 add-apt-repository ppa:certbot/certbot
