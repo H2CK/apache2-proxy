@@ -55,8 +55,12 @@ COPY supervisord.conf ${supervisor_conf}
 COPY 01_user_config.sh ${start_scripts_path}
 COPY 02_auto_update.sh ${start_scripts_path}
 COPY 03_set_a2port.sh ${start_scripts_path}
-
 COPY start.sh /start.sh
+RUN chmod +x ${start_scripts_path}/01_user_config.sh \
+    && chmod +x ${start_scripts_path}/02_auto_update.sh \
+    && chmod +x ${start_scripts_path}/03_set_a2port.sh \
+    && chmod +x /start.sh
+
 CMD ["./start.sh"]
        
 VOLUME /etc/apache2/sites-enabled /etc/letsencrypt
