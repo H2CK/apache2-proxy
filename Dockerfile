@@ -5,7 +5,10 @@ ENV DEBIAN_FRONTEND="noninteractive" HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.U
 ENV supervisor_conf /etc/supervisor/supervisord.conf
 ENV start_scripts_path /bin
 
+# Update packages from baseimage
 RUN apt-get update -qq
+# Install and activate necessary software
+# Remark: Apache module mod_wsgi is installed but not enabled (anymore)
 RUN apt-get upgrade -qy && apt-get install -qy \
     apt-utils \
     cron \
@@ -39,7 +42,6 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     && a2enmod proxy_wstunnel \
     && a2enmod rewrite \
     && a2enmod headers \
-    && a2enmod wsgi \
     && a2enmod auth_openidc \
     && a2dissite 000-default \
     && mkdir /var/www/letsencrypt \
