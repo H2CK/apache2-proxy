@@ -9,7 +9,6 @@ ENV start_scripts_path /bin
 # Update packages from baseimage
 RUN apt-get update -qq
 # Install and activate necessary software
-# Remark: Apache module mod_wsgi is installed but not enabled (anymore)
 RUN apt-get upgrade -qy && apt-get install -qy \
     apt-utils \
     cron \
@@ -19,16 +18,10 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     libexpat1 \
     libcjose0 \
     libcurl4 \
-    libhiredis0.13 \
     libjansson4 \
     ssl-cert \
     python \
-    libapache2-mod-wsgi \
     libapache2-mod-auth-openidc \
-    python-redis \
-    python-passlib \
-    python-requests \
-    python-requests-cache \
     php \
     libapache2-mod-php \
     php-mysql \
