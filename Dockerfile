@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 
 # Set correct environment variables
 ENV DEBIAN_FRONTEND="noninteractive" HOME="/root" LC_ALL="C.UTF-8" LANG="en_US.UTF-8" LANGUAGE="en_US.UTF-8"
@@ -8,7 +8,7 @@ ENV start_scripts_path /bin
 
 # Update packages from baseimage
 RUN apt-get update -qq
-# Install and activate necessary software
+# Install and activate necessary software #neplan.io \
 RUN apt-get upgrade -qy && apt-get install -qy \
     apt-utils \
     cron \
