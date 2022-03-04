@@ -49,7 +49,6 @@ function docker_build() {
   echo "DOCKER BUILD: Build Docker image."
   echo "DOCKER BUILD: arch - ${ARCH}."
   echo "DOCKER BUILD: build version -> ${BUILD_VERSION}."
-  echo "DOCKER BUILD: nextcloud version -> ${NC_VERSION}."
   echo "DOCKER BUILD: qemu arch - ${QEMU_ARCH}."
   echo "DOCKER BUILD: docker file - ${DOCKER_FILE}."
 
@@ -58,7 +57,6 @@ function docker_build() {
     --build-arg BUILD_DATE=${BUILD_DATE} \
     --build-arg BUILD_VERSION=${BUILD_VERSION} \
     --build-arg BUILD_REF=${COMMIT_SHA} \
-    --build-arg NC_VERSION=${NC_VERSION} \
     --build-arg QEMU_ARCH=${QEMU_ARCH} \
     --file ./${DOCKER_FILE} \
     --tag ${TARGET}:build .
@@ -96,14 +94,14 @@ function docker_manifest_list_version() {
   echo "DOCKER MANIFEST: Create and Push docker manifest list - ${TARGET}:${BUILD_VERSION}."
 
   docker manifest create ${TARGET}:${BUILD_VERSION} \
-    ${TARGET}:${BUILD_VERSION}-amd64 \
-    ${TARGET}:${BUILD_VERSION}-arm32v7 \
-    ${TARGET}:${BUILD_VERSION}-arm64v8 #\
+    ${TARGET}:${BUILD_VERSION}-amd64 #\
+    # ${TARGET}:${BUILD_VERSION}-arm32v7 \
+    # ${TARGET}:${BUILD_VERSION}-arm64v8 #\
     # ${TARGET}:${BUILD_VERSION}-ppc64le \
     # ${TARGET}:${BUILD_VERSION}-s390x
 
-  docker manifest annotate ${TARGET}:${BUILD_VERSION} ${TARGET}:${BUILD_VERSION}-arm32v7 --os=linux --arch=arm --variant=v7
-  docker manifest annotate ${TARGET}:${BUILD_VERSION} ${TARGET}:${BUILD_VERSION}-arm64v8 --os=linux --arch=arm64 --variant=v8
+  # docker manifest annotate ${TARGET}:${BUILD_VERSION} ${TARGET}:${BUILD_VERSION}-arm32v7 --os=linux --arch=arm --variant=v7
+  # docker manifest annotate ${TARGET}:${BUILD_VERSION} ${TARGET}:${BUILD_VERSION}-arm64v8 --os=linux --arch=arm64 --variant=v8
   # docker manifest annotate ${TARGET}:${BUILD_VERSION} ${TARGET}:${BUILD_VERSION}-ppc64le --os=linux --arch=ppc64le
   # docker manifest annotate ${TARGET}:${BUILD_VERSION} ${TARGET}:${BUILD_VERSION}-s390x --os=linux --arch=s390x
   
@@ -123,14 +121,14 @@ function docker_manifest_list_test_beta_latest() {
   echo "DOCKER MANIFEST: Create and Push docker manifest list - ${TARGET}:${TAG_PREFIX}."
 
   docker manifest create ${TARGET}:${TAG_PREFIX} \
-    ${TARGET}:${BUILD_VERSION}-amd64 \
-    ${TARGET}:${BUILD_VERSION}-arm32v7 \
-    ${TARGET}:${BUILD_VERSION}-arm64v8 #\
+    ${TARGET}:${BUILD_VERSION}-amd64 #\
+    # ${TARGET}:${BUILD_VERSION}-arm32v7 \
+    # ${TARGET}:${BUILD_VERSION}-arm64v8 #\
     # ${TARGET}:${BUILD_VERSION}-ppc64le \
     # ${TARGET}:${BUILD_VERSION}-s390x
 
-  docker manifest annotate ${TARGET}:${TAG_PREFIX} ${TARGET}:${BUILD_VERSION}-arm32v7 --os=linux --arch=arm --variant=v7
-  docker manifest annotate ${TARGET}:${TAG_PREFIX} ${TARGET}:${BUILD_VERSION}-arm64v8 --os=linux --arch=arm64 --variant=v8
+  # docker manifest annotate ${TARGET}:${TAG_PREFIX} ${TARGET}:${BUILD_VERSION}-arm32v7 --os=linux --arch=arm --variant=v7
+  # docker manifest annotate ${TARGET}:${TAG_PREFIX} ${TARGET}:${BUILD_VERSION}-arm64v8 --os=linux --arch=arm64 --variant=v8
   # docker manifest annotate ${TARGET}:${TAG_PREFIX} ${TARGET}:${BUILD_VERSION}-ppc64le --os=linux --arch=ppc64le
   # docker manifest annotate ${TARGET}:${TAG_PREFIX} ${TARGET}:${BUILD_VERSION}-s390x --os=linux --arch=s390x
 
@@ -182,10 +180,10 @@ function prepare_qemu() {
   mkdir tmp
   pushd tmp &&
     curl -L -o qemu-x86_64-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/$QEMU_VERSION/qemu-x86_64-static.tar.gz && tar xzf qemu-x86_64-static.tar.gz &&
-    curl -L -o qemu-arm-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/$QEMU_VERSION/qemu-arm-static.tar.gz && tar xzf qemu-arm-static.tar.gz &&
+    # curl -L -o qemu-arm-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/$QEMU_VERSION/qemu-arm-static.tar.gz && tar xzf qemu-arm-static.tar.gz &&
     # curl -L -o qemu-ppc64le-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/$QEMU_VERSION/qemu-ppc64le-static.tar.gz && tar xzf qemu-ppc64le-static.tar.gz &&
     # curl -L -o qemu-s390x-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/$QEMU_VERSION/qemu-s390x-static.tar.gz && tar xzf qemu-s390x-static.tar.gz &&
-    curl -L -o qemu-aarch64-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/$QEMU_VERSION/qemu-aarch64-static.tar.gz && tar xzf qemu-aarch64-static.tar.gz &&
+    # curl -L -o qemu-aarch64-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/$QEMU_VERSION/qemu-aarch64-static.tar.gz && tar xzf qemu-aarch64-static.tar.gz &&
     popd
 }
 
