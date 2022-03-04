@@ -11,8 +11,8 @@ name: "Build Apache2-Proxy"
 
 on:
   push:
-#    branches:
-#      - "*"
+    branches:
+      - "*"
     tags:
       - "[0-9]+.[0-9]+.[0-9]+**"
   pull_request:
@@ -60,7 +60,6 @@ jobs:
           echo ::set-output name=TARGET::${DOCKER_USERNAME}/apache2-proxy
           echo ::set-output name=BUILD_VERSION::$(echo ${GITHUB_SHA} | cut -c1-8)
           echo ::set-output name=BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-          echo ::set-output name=NC_VERSION::$(grep -oE 'NC_VERSION=(\w*.\w*.\w*)' Dockerfile | cut -d= -f2)
           if [[ "${TAG}" =~ ^[[0-9]+.[0-9]+.[0-9]+.*$ ]]; then
             echo ::set-output name=BUILD_VERSION::${TAG}
           fi
@@ -77,7 +76,6 @@ jobs:
           BUILD_DATE: ${{ steps.prep.outputs.BUILD_DATE }}
           BUILD_REF: ${{ env.COMMIT_SHA }}
           TARGET: ${{ steps.prep.outputs.TARGET }}
-          NC_VERSION: ${{ steps.prep.outputs.NC_VERSION }}
         run: |
           echo "BUILD_VERSION: $BUILD_VERSION"
           echo BUILD_DATE: $BUILD_DATE
@@ -94,7 +92,6 @@ jobs:
           BUILD_DATE: ${{ steps.prep.outputs.BUILD_DATE }}
           BUILD_REF: ${{ env.COMMIT_SHA }}
           TARGET: ${{ steps.prep.outputs.TARGET }}
-          NC_VERSION: ${{ steps.prep.outputs.NC_VERSION }}
         run: ./docker.sh test
       - name: "Push Docker Image"
         if: startsWith(github.ref, 'refs/tags/')
@@ -105,7 +102,6 @@ jobs:
           BUILD_DATE: ${{ steps.prep.outputs.BUILD_DATE }}
           BUILD_REF: ${{ env.COMMIT_SHA }}
           TARGET: ${{ steps.prep.outputs.TARGET }}
-          NC_VERSION: ${{ steps.prep.outputs.NC_VERSION }}
         run: |
           if [[ "${{ env.BUILD_VERSION }}" =~ ^[[0-9]+.[0-9]+.[0-9]+.*$ ]]; then
             ./docker.sh tag
@@ -131,7 +127,6 @@ jobs:
           echo ::set-output name=TARGET::${DOCKER_USERNAME}/apache2-proxy
           echo ::set-output name=BUILD_VERSION::$(echo ${GITHUB_SHA} | cut -c1-8)
           echo ::set-output name=BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-          echo ::set-output name=NC_VERSION::$(grep -oE 'NC_VERSION=(\w*.\w*.\w*)' Dockerfile | cut -d= -f2)
           if [[ "${TAG}" =~ ^[[0-9]+.[0-9]+.[0-9]+.*$ ]]; then
             echo ::set-output name=BUILD_VERSION::${TAG}
           fi
@@ -146,14 +141,12 @@ jobs:
           BUILD_DATE: ${{ steps.prep.outputs.BUILD_DATE }}
           BUILD_REF: ${{ env.COMMIT_SHA }}
           TARGET: ${{ steps.prep.outputs.TARGET }}
-          NC_VERSION: ${{ steps.prep.outputs.NC_VERSION }}
         run: |
           echo "BUILD_VERSION: $BUILD_VERSION"
           echo BUILD_DATE: $BUILD_DATE
           echo BUILD_REF: $BUILD_REF
           echo TARGET: ${{ env.TARGET }}
           echo COMMIT_SHA: ${{ env.COMMIT_SHA }}
-          echo NC_VERSION: $NC_VERSION
           if [[ "${{ env.BUILD_VERSION }}" =~ ^[[0-9]+.[0-9]+.[0-9]+.*$ ]]; then
             echo Writing Manifest.
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
