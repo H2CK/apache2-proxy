@@ -125,9 +125,9 @@ jobs:
           echo "TAG: ${TAG}"
           echo "TARGET=${DOCKER_USERNAME}/apache2-proxy" >> $GITHUB_OUTPUT
           echo "BUILD_VERSION=$(echo ${GITHUB_SHA} | cut -c1-8)" >> $GITHUB_OUTPUT
-          echo "BUILD_DATE::$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
           if [[ "${TAG}" =~ ^[[0-9]+.[0-9]+.[0-9]+.*$ ]]; then
-            echo "BUILD_VERSION::${TAG}" >> $GITHUB_OUTPUT
+            echo "BUILD_VERSION=${TAG}" >> $GITHUB_OUTPUT
           fi
           chmod 775 docker.sh
           ./docker.sh prepare
