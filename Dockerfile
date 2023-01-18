@@ -20,7 +20,7 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     libcurl4 \
     libjansson4 \
     ssl-cert \
-    python \
+    python3 \
     libapache2-mod-auth-openidc \
     php \
     libapache2-mod-php \
