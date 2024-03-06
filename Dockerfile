@@ -23,12 +23,16 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     python3 \
     libapache2-mod-auth-openidc \
     php \
-    libapache2-mod-php \
+    php-fpm \
     php-mysql \
     certbot \
     python3-certbot-apache \
     wget \
+    && a2dismod mpm_prefork \
+    && a2enmod mpm_event \
+    && a2enconf php-fpm \
     && a2enmod ssl \
+    && a2enmod http2 \
     && a2enmod proxy \
     && a2enmod proxy_http \
     && a2enmod proxy_balancer \
@@ -36,6 +40,7 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     && a2enmod proxy_wstunnel \
     && a2enmod rewrite \
     && a2enmod headers \
+    && a2enmod proxy_fcgi \
     && a2enmod auth_openidc \
     && a2dissite 000-default \
     && mkdir /var/www/letsencrypt \
