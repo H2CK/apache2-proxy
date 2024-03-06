@@ -30,7 +30,6 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     wget \
     && a2dismod mpm_prefork \
     && a2enmod mpm_event \
-    && a2enconf php-fpm \
     && a2enmod ssl \
     && a2enmod http2 \
     && a2enmod proxy \
@@ -40,8 +39,8 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     && a2enmod proxy_wstunnel \
     && a2enmod rewrite \
     && a2enmod headers \
-    && a2enmod proxy_fcgi \
-    && a2enmod auth_openidc \
+    && a2enmod proxy_fcgi setenvif \
+    && a2enconf php-fpm \
     && a2dissite 000-default \
     && mkdir /var/www/letsencrypt \
     && mkdir /var/www/letsencrypt/.well-known \
@@ -51,6 +50,8 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     && rm -rf /var/lib/apt/lists/* /var/cache/* /var/tmp/* /tmp/* \
     && groupadd docker-data \
     && usermod -a -G docker-data,adm www-data
+
+## && a2enmod auth_openidc \
 
 COPY supervisord.conf ${supervisor_conf}
 COPY security.conf ${security_conf}
