@@ -28,6 +28,7 @@ RUN apt-get upgrade -qy && apt-get install -qy \
     certbot \
     python3-certbot-apache \
     wget \
+    && a2dismod php \
     && a2dismod mpm_prefork \
     && a2enmod mpm_event \
     && a2enmod ssl \
